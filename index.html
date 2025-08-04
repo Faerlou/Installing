@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="demo-styles.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer@3.4.0/dist/model-viewer.min.js"></script>
+</head>
+
+<style>
+    model-viewer {
+        margin: 150px auto 75px;
+        display: block;
+        width: 1000px;
+        height: 1000px;
+    }
+
+    .ar-button {
+        background-color: white;
+        border-radius: 4px;
+        border: none;
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 10; /* Поднимаем над другими элементами */
+    }
+
+    .play-animation-button {
+        background-color: white;
+        border-radius: 4px;
+        border: none;
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px;
+        cursor: pointer;
+        display: none; /* Скрываем кнопку по умолчанию */
+        z-index: 10; /* Поднимаем над другими элементами */
+    }
+</style>
+
+<body style="margin: 0px; overflow: hidden;">
+
+    <model-viewer id="modelViewer" ar camera-controls touch-action="pan-y" src="instal.glb" alt="A 3D model of an astronaut" autoplay>
+        <button slot="ar-button" class="ar-button">
+            👋 Activate AR
+        </button>
+    </model-viewer>
+
+    <button class="play-animation-button" id="playAnimationButton">
+        ▶️ Play Animation
+    </button>
+
+    <script>
+        const modelViewer = document.getElementById('modelViewer');
+        const playAnimationButton = document.getElementById('playAnimationButton');
+
+        // Запускаем анимацию при загрузке модели
+        modelViewer.addEventListener('load', () => {
+            modelViewer.play();
+        });
+
+        // Зацикливаем анимацию
+        modelViewer.addEventListener('animation-finished', () => {
+            modelViewer.play();
+        });
+
+        // Показать кнопку для воспроизведения анимации при входе в AR
+        modelViewer.addEventListener('enter-ar', () => {
+            console.log('Entered AR mode');
+            playAnimationButton.style.display = 'block'; // Показываем кнопку
+        });
+
+        // Скрыть кнопку, когда вы выходите из AR
+        modelViewer.addEventListener('exit-ar', () => {
+            console.log('Exited AR mode');
+            playAnimationButton.style.display = 'none'; // Скрываем кнопку
+        });
+
+        // Обработчик события для кнопки запуска анимации
+        playAnimationButton.addEventListener('click', () => {
+            modelViewer.play(); // Запускаем анимацию при нажатии кнопки
+            console.log('Animation started'); // Логируем запуск анимации
+        });
+    </script>
+
+</body>
+</html>
