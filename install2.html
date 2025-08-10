@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="demo-styles.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer@3.4.0/dist/model-viewer.min.js"></script>
+</head>
+  
+  <style>
+    model-viewer {
+margin: 150px auto 75px;
+display: block;
+width: 1000px;
+height: 1000px;
+    }
+  </style>
+  
+  <body style="margin : 0px; overflow: hidden;">
+
+      <model-viewer src="Models/instal1.glb"
+                    poster="logoml.jpg"
+                    tone-mapping="neutral"
+                    shadow-intensity="1"
+                    ar camera-controls
+                    touch-action="pan-y"
+                    alt="A 3D model carousel">
+
+          <button slot="ar-button"
+                  style="background-color: white; font-size: 38px; width: 100%; ">
+              СДЕЛАТЬ ФОТО
+          </button>
+          
+      </model-viewer>
+
+  </body>
+</html>
